@@ -47,3 +47,11 @@ stations wlan0 connect "Network Name"
 ## chezmoi
 
 This is a tool that manages dotfiles
+
+```
+pacman -S chezmoi mc dhcpcd firefox tmux bluez bluez-utils
+nmtui
+systemctl enable NetworkManager.service
+systemctl start NetworkManager.service
+
+```
