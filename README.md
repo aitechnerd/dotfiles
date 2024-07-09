@@ -44,12 +44,18 @@ stations wlan0 connect "Network Name"
 - NTP: True
 - Optional repositories: (none)
 
+## Installation
+
+```
+curl -L https://gist.githubusercontent.com/aitechnerd/f949ef875f2afd3f7490a6cd985f5075/raw/04f602995c86d9c2f6d228c28c460bcec39ca675/bootstrap.sh | bash
+```
+
 ## chezmoi
 
 This is a tool that manages dotfiles
 
 ```
-pacman -S chezmoi mc dhcpcd firefox tmux neovim bluez bluez-utils hyprland git
+pacman -S bluez bluez-utils hyprland
 nmtui
 systemctl enable NetworkManager.service
 systemctl start NetworkManager.service
