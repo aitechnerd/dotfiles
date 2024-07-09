@@ -63,3 +63,28 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 echo "Changing default shell to Zsh..."
 chsh -s $(which zsh)
 
+# Stow .config directory files
+CONFIG_STOW_DIRS=(
+    "tmux"
+    # "alacritty"
+)
+
+for dir in "${CONFIG_STOW_DIRS[@]}"; do
+    if [ -d "$dir" ]; then
+        safe_stow "$dir" ~/.config
+    else
+        echo "Directory $dir not found, skipping..."
+    fi
+done
+
+# Install Tmux Plugin Manager (TPM)
+if [ -f ~/.tmux.conf ]; then
+    echo "Setting up Tmux Plugin Manager..."
+    if [ ! -d ~/.tmux/plugins/tpm ]; then
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    fi
+
+    # Install tmux plugins
+    echo "Installing tmux plugins..."
+    ~/.tmux/plugins/tpm/bin/install_plugins
+fi
