@@ -15,14 +15,12 @@ sudo pacman -Syu --noconfirm
 
 # Function to ask yes/no questions
 ask_yes_no() {
-    while true; do
-        read -p "$1 (y/n): " choice
-        case "$choice" in 
-            y|Y ) return 0;;
-            n|N ) return 1;;
-            * ) echo "Please answer y or n.";;
-        esac
-    done
+    read -p "$1 (y/n): " choice
+    case "$choice" in 
+        y|Y ) return 0;;
+        n|N ) return 1;;
+        * ) echo "Invalid input. Assuming no."; return 1;;
+    esac
 }
 
 # Function to safely stow a directory
