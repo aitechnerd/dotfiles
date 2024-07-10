@@ -2,7 +2,7 @@
 
 
 echo "Installing Hyprland and SDDM with Wayland support..."
-sudo pacman -S --noconfirm hyprland sddm wayland qt5-wayland pavucontrol rofi-wayland
+sudo pacman -S --noconfirm hyprland sddm wayland qt5-wayland pavucontrol rofi-wayland wofi hyprpaper
 
 # Enable SDDM service
 sudo systemctl enable sddm.service
