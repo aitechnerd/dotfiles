@@ -1,8 +1,9 @@
 #!/bin/bash
 
+source "install-scripts/global_functions.sh"
 
 echo "Installing Hyprland and SDDM with Wayland support..."
-sudo pacman -S --noconfirm hyprland sddm wayland qt5-wayland pavucontrol rofi-wayland wofi hyprpaper
+sudo pacman -S --noconfirm hyprland sddm wayland qt5-wayland pavucontrol rofi-wayland wofi hyprpaper waybar
 
 # Enable SDDM service
 sudo systemctl enable sddm.service
@@ -14,10 +15,6 @@ set /files/etc/sddm.conf/General/DisplayServer wayland
 set /files/etc/sddm.conf/General/GreeterEnvironment "QT_WAYLAND_DISABLE_WINDOWDECORATION=1,QT_QPA_PLATFORM=wayland"
 save
 EOF
-
-# Install additional packages for Hyprland
-echo "Installing additional packages for Hyprland..."
-sudo pacman -S --noconfirm waybar rofi
 
 # Install Catppuccin theme for Hyprland
 echo "Installing Catppuccin theme for Hyprland..."

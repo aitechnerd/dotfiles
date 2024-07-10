@@ -1,7 +1,9 @@
 #!/bin/bash
 
+source "install-scripts/global_functions.sh"
+
 echo "Installing basic utilities and console tools..."
-sudo pacman -S --noconfirm git base-devel stow zsh tmux neovim reflector mc dhcpcd neofetch alacritty ttf-dejavu-nerd
+sudo pacman -S --noconfirm git base-devel stow zsh tmux neovim reflector mc dhcpcd neofetch alacritty ttf-dejavu-nerd augeas
 
 # Install yay
 echo "Installing yay (AUR helper)..."
