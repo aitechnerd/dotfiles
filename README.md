@@ -15,15 +15,15 @@ device list
 ```
 Activate networks scan:
 ```
-stations wlan0 scan
+station wlan0 scan
 ```
 List all wifi networks:
 ```
-stations wlan0 get-networks
+station wlan0 get-networks
 ```
 Connect to the network (where Network Name is wifi network name we want to connect):
 ```
-stations wlan0 connect "Network Name"
+station wlan0 connect "Network Name"
 ```
 
 ### Use Arch Linux install
