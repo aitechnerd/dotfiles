@@ -3,7 +3,11 @@
 source "install-scripts/global_functions.sh"
 
 echo "Installing basic utilities and console tools..."
-sudo pacman -S --noconfirm git base-devel stow zsh tmux neovim reflector mc dhcpcd neofetch alacritty ttf-dejavu-nerd augeas
+sudo pacman -S --noconfirm git base-devel wget unzip stow gum rsync figlet zsh tmux neovim reflector mc dhcpcd neofetch fastfetch fuse2 alacritty
+sudo pacman -S --noconfirm ttf-dejavu-nerd ttf-font-awesome ttf-fira-sans ttf-fira-code ttf-firacode-nerd
+
+git config --global user.name "Sergey Belov"
+git config --global user.email "belov.ss@gmail.com"
 
 # Install yay
 echo "Installing yay (AUR helper)..."
@@ -68,7 +72,7 @@ chsh -s $(which zsh)
 # Stow .config directory files
 CONFIG_STOW_DIRS=(
     "tmux"
-    # "alacritty"
+    "alacritty"
 )
 
 for dir in "${CONFIG_STOW_DIRS[@]}"; do
