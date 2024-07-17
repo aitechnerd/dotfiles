@@ -3,7 +3,7 @@
 source "install-scripts/global_functions.sh"
 
 echo "Installing basic utilities and console tools..."
-sudo pacman -S --noconfirm git base-devel wget unzip stow gum rsync figlet zsh tmux neovim reflector mc dhcpcd neofetch fastfetch fuse2 alacritty
+sudo pacman -S --noconfirm git base-devel wget unzip stow gum rsync figlet zsh tmux neovim reflector mc dhcpcd neofetch fastfetch fuse2 alacritty nmtui
 sudo pacman -S --noconfirm ttf-dejavu-nerd ttf-font-awesome ttf-fira-sans ttf-fira-code ttf-firacode-nerd
 
 git config --global user.name "Sergey Belov"
@@ -71,8 +71,8 @@ chsh -s $(which zsh)
 
 # Stow .config directory files
 CONFIG_STOW_DIRS=(
-    "tmux"
     "alacritty"
+    "mc"
 )
 
 for dir in "${CONFIG_STOW_DIRS[@]}"; do
@@ -82,6 +82,8 @@ for dir in "${CONFIG_STOW_DIRS[@]}"; do
         echo "Directory $dir not found, skipping..."
     fi
 done
+
+safe_stow "tmux" ~/
 
 # Install Tmux Plugin Manager (TPM)
 if [ -f ~/.tmux.conf ]; then

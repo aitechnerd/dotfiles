@@ -25,6 +25,10 @@ if ask_yes_no "Install basic utilities and console tools?"; then
     sleep 1
     ./install-scripts/pacman.sh
     sleep 1
+    ./install-scripts/wifi.sh
+    sleep 1
+    ./install-scripts/bluetooth.sh
+    sleep 1
 fi
 
 # Ask about graphical interface
@@ -32,7 +36,5 @@ if ask_yes_no "Do you want to install Hyprland window manager with SDDM?"; then
     ./install-scripts/hyprland.sh
     sleep 1
 fi
-exit
-
 
 echo "Setup complete! Please log out and log back in to start using Zsh. Then reboot your system to apply all changes."
