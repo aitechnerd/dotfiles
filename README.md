@@ -50,18 +50,7 @@ station wlan0 connect "Network Name"
 curl -L https://gist.githubusercontent.com/aitechnerd/f949ef875f2afd3f7490a6cd985f5075/raw/04f602995c86d9c2f6d228c28c460bcec39ca675/bootstrap.sh | bash
 ```
 
-## chezmoi
 
-This is a tool that manages dotfiles
-
-```
-pacman -S bluez bluez-utils hyprland
-nmtui
-systemctl enable NetworkManager.service
-systemctl start NetworkManager.service
-systemctl enable bluetooth.service
-systemctl start bluetooth.service
-```
 
 ```
 ### Disable wifi powersave mode ###
@@ -80,3 +69,15 @@ bluetoothctl
 
 - scan on
 - pair MAC_address
+
+To connect Keychron keyboard:
+
+- power on
+- agent KeyboardOnly
+- default-agent
+- pairable on
+- scan on
+- pair 01:02:03:04:05:06
+- trust 01:02:03:04:05:06
+- connect 01:02:03:04:05:06
+- quit
