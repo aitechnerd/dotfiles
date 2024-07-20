@@ -11,7 +11,7 @@ echo -e "[connection]\nwifi.powersave = 2" | sudo tee -a $LOC
 echo -e "\n"
 echo -e "Restarting NetworkManager service...\n"
 sudo systemctl restart NetworkManager
-sleep 3
+sleep 1
 
 systemctl enable NetworkManager.service
 systemctl start NetworkManager.service

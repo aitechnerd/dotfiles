@@ -32,8 +32,14 @@ if ask_yes_no "Install basic utilities and console tools?"; then
 fi
 
 # Ask about graphical interface
-if ask_yes_no "Do you want to install Hyprland window manager with SDDM?"; then
+if ask_yes_no "Do you want to install Hyprland window manager?"; then
     ./install-scripts/hyprland.sh
+    sleep 1
+fi
+
+# Ask about graphical interface
+if ask_yes_no "Do you want to install office and development tools?"; then
+    ./install-scripts/office.sh
     sleep 1
 fi
 

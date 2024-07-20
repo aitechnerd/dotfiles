@@ -3,10 +3,8 @@
 source "install-scripts/global_functions.sh"
 
 echo "Installing basic utilities and console tools..."
-sudo pacman -S --noconfirm git base-devel wget tar unzip stow gum rsync figlet zsh tmux neovim mc dhcpcd neofetch fastfetch fuse2 alacritty nmtui
-sudo pacman -S --noconfirm ttf-dejavu-nerd ttf-font-awesome ttf-fira-sans ttf-fira-code ttf-firacode-nerd
-sudo pacman -S --noconfirm ttf-cascadia-code-nerd ttf-cascadia-mono-nerd ttf-fira-code ttf-fira-mono ttf-fira-sans ttf-firacode-nerd ttf-iosevka-nerd ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
-sudo pacman -S --noconfirm pipewire wireplumber
+sudo pacman -S --noconfirm git base-devel wget tar unzip stow zsh tmux neovim mc dhcpcd neofetch fastfetch fuse2 alacritty nmtui pipewire wireplumber
+sudo pacman -S --noconfirm ttf-dejavu-nerd ttf-font-awesome ttf-fira-sans ttf-fira-code ttf-firacode-nerd ttf-cascadia-code-nerd ttf-cascadia-mono-nerd ttf-fira-code ttf-fira-mono ttf-fira-sans ttf-firacode-nerd ttf-iosevka-nerd ttf-iosevkaterm-nerd ttf-jetbrains-mono-nerd ttf-jetbrains-mono ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
 
 git config --global user.name "Sergey Belov"
 git config --global user.email "belov.ss@gmail.com"
