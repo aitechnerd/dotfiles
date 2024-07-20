@@ -21,9 +21,9 @@ sleep 1
 
 if ask_yes_no "Install basic utilities and console tools?"; then
     # Install basic utilities and console tools
-    ./install-scripts/console.sh
-    sleep 1
     ./install-scripts/pacman.sh
+    sleep 1
+    ./install-scripts/console.sh
     sleep 1
     ./install-scripts/wifi.sh
     sleep 1

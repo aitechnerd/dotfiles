@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 source "install-scripts/global_functions.sh"
 
 echo -e "${NOTE} Adding Extra Spice in pacman.conf ... ${RESET}" 2>&1 | tee -a "$LOG"

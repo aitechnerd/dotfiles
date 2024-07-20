@@ -26,28 +26,32 @@ Connect to the network (where Network Name is wifi network name we want to conne
 station wlan0 connect "Network Name"
 ```
 
-### Use Arch Linux install
+### Use Arch Linux install (v.2.8.1)
+
 
 - Archinstall language: English (100%)
 - Mirrors: United States
-- Disk configuration: use best-effort default, btrfs, Y to use subvolumes, Use compression
+- Disk configuration: Partitioning, Use a best-effort default partition layout, btrfs, Y to use subvolumes, Use compression
 - Bootloader: Grub
 - Swap: True (zram)
-- Hotname: arch
+- Hotname: archbtw
 - Root Password: (secured)
 - Add User: sergey, add to (sudo)
-- Profile: Desktop, Hyprland, polkit. Graphics driver: All open-source, Greeter: sddm
+- Profile: Minimal
 - Audio: Pipewire
 - Kernels: linux
 - Network configuration: Use NetworkManager
 - Timezone: Denver
-- NTP: True
+- Automatic time sync (NTP): True
 - Optional repositories: (none)
 
 ## Installation
 
 ```
 curl -L https://gist.githubusercontent.com/aitechnerd/f949ef875f2afd3f7490a6cd985f5075/raw/04f602995c86d9c2f6d228c28c460bcec39ca675/bootstrap.sh | bash
+```
+```
+curl -L https://shorturl.at/B5FSY | bash
 ```
 
 
