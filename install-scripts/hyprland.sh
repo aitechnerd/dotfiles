@@ -3,32 +3,17 @@
 source "install-scripts/global_functions.sh"
 
 echo "Installing Hyprland..."
-sudo pacman -S --noconfirm pavucontrol hyprland wayland waybar qt5-wayland qt6-wayland hyprpaper hyprlock hypridle dunst
-# sudo pacman -S --noconfirm xdg-desktop-portal-hyprland gtk4
-# yay --noconfirm -S wlogout swww hyprpicker grimblast
+sudo pacman -S --noconfirm pavucontrol hyprland wayland waybar rofi-wayland qt5-wayland qt6-wayland hyprpaper hyprlock hypridle dunst thunar xdg-desktop-portal-hyprland gtk4 libadwaita python-gobject
+
 yay --noconfirm -S wlogout
-
-# Enable SDDM service
-# sudo systemctl enable sddm.service
-
-# Configure SDDM to use Wayland
-# echo "Configuring SDDM to use Wayland..."
-# sudo mkdir -p /etc/sddm.conf.d
-# sudo tee /etc/sddm.conf.d/10-wayland.conf > /dev/null << EOL
-# [General]
-# DisplayServer=wayland
-# GreeterEnvironment=QT_WAYLAND_DISABLE_WINDOWDECORATION=1,QT_QPA_PLATFORM=wayland
-# EOL
-
-# echo "SDDM configured to use Wayland."
 
 # Stow additional GUI configs
 GUI_CONFIG_DIRS=(
     "hypr"
     "waybar"
-    # "rofi"
-    # "dunst"
-    # "ml4w"
+    "rofi"
+    "dunst"
+    "ml4w"
     "wlogout"
 )
 
@@ -61,3 +46,5 @@ fi
 echo "$AUTOSTART_CODE" >> "$ZSHRC"
 
 echo "Hyprland autostart code has been added to $ZSHRC"
+
+echo "alias ml4w-hyprland='~/.config/ml4w/apps/ML4W_Hyprland_Settings-x86_64.AppImage'" >> "$ZSHRC"
