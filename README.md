@@ -51,7 +51,7 @@ station wlan0 connect "Network Name"
 curl -L https://gist.githubusercontent.com/aitechnerd/f949ef875f2afd3f7490a6cd985f5075/raw/04f602995c86d9c2f6d228c28c460bcec39ca675/bootstrap.sh | bash
 ```
 ```
-curl -L https://shorturl.at/B5FSY | bash
+curl -L https://shorturl.at/ZCMLM | bash
 ```
 
 

@@ -2,7 +2,7 @@
 
 # Function to ask yes/no questions
 ask_yes_no() {
-    read -p "$1 (y/n): " choice
+    read -p "$1 (Y/N): " choice
     case "$choice" in 
         y|Y ) return 0;;
         n|N ) return 1;;

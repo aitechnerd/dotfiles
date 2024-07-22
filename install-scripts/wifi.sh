@@ -2,8 +2,6 @@
 
 source "install-scripts/global_functions.sh"
 
-sudo pacman -S --noconfirm nmtui
-
 ### Disable wifi powersave mode ###
 LOC="/etc/NetworkManager/conf.d/wifi-powersave.conf"
 echo -e "The following has been added to $LOC.\n"
