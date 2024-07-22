@@ -19,7 +19,7 @@ GUI_CONFIG_DIRS=(
 
 for dir in "${GUI_CONFIG_DIRS[@]}"; do
     if [ -d "$dir" ]; then
-        safe_stow "$dir" ~/.config
+        safe_stow "$dir" ~/
     else
         echo "Directory $dir not found, skipping..."
     fi

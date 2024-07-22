@@ -32,17 +32,16 @@ chsh -s $(which zsh)
 CONFIG_STOW_DIRS=(
     "alacritty"
     "mc"
+    "tmux"
 )
 
 for dir in "${CONFIG_STOW_DIRS[@]}"; do
     if [ -d "$dir" ]; then
-        safe_stow "$dir" ~/.config
+        safe_stow "$dir" ~/
     else
         echo "Directory $dir not found, skipping..."
     fi
 done
-
-safe_stow "tmux" ~/
 
 # Install Tmux Plugin Manager (TPM)
 if [ -f ~/.tmux.conf ]; then
