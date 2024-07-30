@@ -48,27 +48,12 @@ station wlan0 connect "Network Name"
 ## Installation
 
 ```
-curl -L https://gist.githubusercontent.com/aitechnerd/f949ef875f2afd3f7490a6cd985f5075/raw/04f602995c86d9c2f6d228c28c460bcec39ca675/bootstrap.sh | bash
+curl -L https://gist.githubusercontent.com/aitechnerd/f949ef875f2afd3f7490a6cd985f5075/raw/44b1c919c52292650fe767993446bdcddaa601d0/bootstrap.sh | bash
 ```
 ```
-curl -L https://shorturl.at/ZCMLM | bash
+curl -L https://shorturl.at/VLGKy | bash
 ```
 
-
-
-```
-### Disable wifi powersave mode ###
-read -n1 -rep 'Would you like to disable wifi powersave? (y,n)' WIFI
-if [[ $WIFI == "Y" || $WIFI == "y" ]]; then
-    LOC="/etc/NetworkManager/conf.d/wifi-powersave.conf"
-    echo -e "The following has been added to $LOC.\n"
-    echo -e "[connection]\nwifi.powersave = 2" | sudo tee -a $LOC
-    echo -e "\n"
-    echo -e "Restarting NetworkManager service...\n"
-    sudo systemctl restart NetworkManager
-    sleep 3
-fi
-```
 bluetoothctl
 
 - scan on
