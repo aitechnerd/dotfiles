@@ -33,6 +33,7 @@ CONFIG_STOW_DIRS=(
     "alacritty"
     "mc"
     "tmux"
+    "btop"
 )
 
 for dir in "${CONFIG_STOW_DIRS[@]}"; do

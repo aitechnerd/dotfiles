@@ -13,7 +13,7 @@ source "install-scripts/global_functions.sh"
 
 # Update system
 echo "Updating system..."
-sudo pacman -Syu --noconfirm
+#sudo pacman -Syu --noconfirm
 
 # Ensuring all in the scripts folder are made executable
 chmod +x install-scripts/*
@@ -21,11 +21,11 @@ sleep 1
 
 if ask_yes_no "Install basic utilities and console tools?"; then
     # Install basic utilities and console tools
-    ./install-scripts/pacman.sh
+#    ./install-scripts/pacman.sh
     sleep 1
-    ./install-scripts/console.sh
+#    ./install-scripts/console.sh
     sleep 1
-    ./install-scripts/wifi.sh
+#    ./install-scripts/wifi.sh
     sleep 1
     ./install-scripts/bluetooth.sh
     sleep 1
