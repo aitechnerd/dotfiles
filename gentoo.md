@@ -65,3 +65,17 @@ emerge --ask --oneshot app-portage/cpuid2cpuflags && \
 echo "*/* $(cpuid2cpuflags)" > /etc/portage/package.use/00cpu-flags && \
 emerge --ask --verbose --update --deep --newuse @world
 ```
+
+Install timezone:
+`ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime`
+
+nano /etc/locale.gen
+Uncomment US UTF-8
+
+`locale-gen`
+
+`eselect locale list`
+
+`eselect locale set 4` (select en_US.utf8)
+
+`env-update && source /etc/profile && export PS1="(chroot) ${PS1}"`
