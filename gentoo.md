@@ -2,7 +2,7 @@ Check harddrives: `lsblk`
 
 Create three partitions: 1G for EFI, RAM size in GB for swap and rest for as main partition
 ```
-sudo su
+sudo su && \
 cfdisk /dev/nvme0n1
 ```
 
@@ -51,7 +51,7 @@ mount --bind /run /mnt/gentoo/run && \
 mount --make-slave /mnt/gentoo/run && \
 chroot /mnt/gentoo /bin/bash && \
 source /etc/profile && \
-export PS1="(chroot) ${PS1}" && \
+export PS1="(chroot) ${PS1}"
 ```
 
 ```
@@ -70,7 +70,7 @@ Install timezone:
 `ln -sf /usr/share/zoneinfo/America/Denver /etc/localtime`
 
 nano /etc/locale.gen
-Uncomment US UTF-8
+Uncomment en_US.UTF-8 UTF-8
 
 `locale-gen`
 
@@ -79,3 +79,87 @@ Uncomment US UTF-8
 `eselect locale set 4` (select en_US.utf8)
 
 `env-update && source /etc/profile && export PS1="(chroot) ${PS1}"`
+
+```
+emerge --ask sys-kernel/linux-firmware
+emerge --ask sys-kernel/installkernel
+USE="dracut" emerge --ask sys-kernel/gentoo-kernel-bin
+emerge --depclean
+echo "gentoo" > /etc/hostname
+```
+
+`nano /etc/fstab`
+
+```
+/dev/nvme0n1p1          /boot           vfat            defaults        0 2
+/dev/nvme0n1p2          none            swap            sw              0 0
+/dev/nvme0n1p3          /               ext4            defaults,noatime        0 1
+```
+
+Set secured root password `passwd`
+
+```
+systemd-machine-id-setup
+systemd-firstboot --prompt
+systemctl preset-all --preset-mode=enable-only
+emerge --ask sys-apps/mlocate
+systemctl enable sshd
+systemctl enable getty@tty1.service
+emerge --ask app-shells/bash-completion
+emerge --ask net-misc/chrony
+systemctl enable chronyd.service
+systemctl enable systemd-timesyncd.service
+emerge --ask sys-block/io-scheduler-udev-rules
+emerge --ask sys-fs/dosfstools sys-fs/btrfs-progs
+emerge --ask net-misc/networkmanager
+```
+
+Add user: `useradd -mG wheel,audio,video,disk {username}`
+Add user to a group: `gpasswd -a {username} plugdev`
+Set user password: `passwd {username}`
+
+```
+systemctl enable NetworkManager
+echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
+emerge --ask sys-boot/grub
+grub-install --efi-directory=/efi
+grub-mkconfig -o /boot/grub/grub.cfg
+exit
+```
+
+Rebooting
+
+```
+cd && \
+umount -l /mnt/gentoo/dev{/shm,/pts,} && \
+umount -R /mnt/gentoo && \
+reboot
+```
+
+
+Make.conf
+
+```
+# These settings were set by the catalyst build script that automatically
+# built this stage.
+# Please consult /usr/share/portage/config/make.conf.example for a more
+# detailed example.
+COMMON_FLAGS="-O2 -pipe"
+CFLAGS="${COMMON_FLAGS}"
+CXXFLAGS="${COMMON_FLAGS}"
+FCFLAGS="${COMMON_FLAGS}"
+FFLAGS="${COMMON_FLAGS}"
+MAKEOPTS="-j6 -l7"
+
+VIDEO_CARDS="amdgpu radeonsi radeon"
+ACCEPT_LICENSE="*"
+
+USE="networkmanager iwd wayland X pipewire dracut"
+
+# NOTE: This stage was built with the bindist USE flag enabled
+
+# This sets the language of build output to English.
+# Please keep this setting intact when reporting bugs.
+LC_MESSAGES=C.utf8
+GRUB_PLATFORMS="efi-64"
+```
