@@ -136,6 +136,16 @@ umount -R /mnt/gentoo && \
 reboot
 ```
 
+After reboot login under root
+
+```
+emerge --ask pipewire wireplumber rtkit
+systemctl enable dbus
+emerge --ask gui-wm/hyprland
+emerge --ask app-misc/brightnessctl
+emerge --ask media-sound/playerctl
+emerge --ask gui-libs/xdg-desktop-portal-hyprland
+```
 
 Make.conf
 
@@ -163,3 +173,4 @@ USE="networkmanager iwd wayland X pipewire dracut"
 LC_MESSAGES=C.utf8
 GRUB_PLATFORMS="efi-64"
 ```
+
