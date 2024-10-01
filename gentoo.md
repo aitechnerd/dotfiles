@@ -141,10 +141,13 @@ After reboot login under root
 ```
 emerge --ask pipewire wireplumber rtkit
 systemctl enable dbus
+emerge --ask app-eselect/eselect-repository
+eselect repository enable guru
+emaint sync -r guru
+emerge --ask gui-libs/xdg-desktop-portal-hyprland
 emerge --ask gui-wm/hyprland
 emerge --ask app-misc/brightnessctl
 emerge --ask media-sound/playerctl
-emerge --ask gui-libs/xdg-desktop-portal-hyprland
 ```
 
 Make.conf
