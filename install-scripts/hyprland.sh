@@ -2,11 +2,6 @@
 
 source "install-scripts/global_functions.sh"
 
-echo "Installing Hyprland..."
-sudo pacman -S --noconfirm pavucontrol alacritty kitty hyprland wayland waybar rofi-wayland qt5-wayland qt6-wayland hyprpaper hyprlock hypridle dunst thunar xdg-desktop-portal-hyprland gtk4 libadwaita python-gobject grim slurp
-
-yay --noconfirm -S wlogout
-
 # Stow additional GUI configs
 GUI_CONFIG_DIRS=(
     "hypr"

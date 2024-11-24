@@ -1,0 +1,1 @@
+dev-qt/qtbase opengl egl eglfs -gles2-only

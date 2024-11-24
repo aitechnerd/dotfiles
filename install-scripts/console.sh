@@ -2,23 +2,9 @@
 
 source "install-scripts/global_functions.sh"
 
-echo "Installing basic utilities and console tools..."
-sudo pacman -S --noconfirm git base-devel wget tar unzip rsync stow zsh tmux neovim mc yazi dhcpcd fastfetch fuse2 networkmanager pipewire wireplumber ttf-font-awesome ttf-jetbrains-mono ttf-fira-sans ttf-firacode-nerd jq ttf-meslo-nerd htop
-
 git config --global user.name "Sergey Belov"
 git config --global user.email "belov.ss@gmail.com"
 
-# Install yay
-echo "Installing yay (AUR helper)..."
-if ! command -v yay &> /dev/null; then
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si --noconfirm
-    cd ..
-    rm -rf yay
-else
-    echo "yay is already installed, skipping..."
-fi
 
 # Install Oh My Zsh
 echo "Installing Oh My Zsh..."
