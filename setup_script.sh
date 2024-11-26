@@ -11,27 +11,31 @@ fi
 
 source "install-scripts/global_functions.sh"
 
+# Ensuring all in the scripts folder are made executable
+chmod +x install-scripts/*
+sleep 1
 
+if ask_yes_no "Install basic utilities and console tools?"; then
     # Install basic utilities and console tools
-#    ./install-scripts/pacman.sh
-#    sleep 1
-#    ./install-scripts/console.sh
-#    sleep 1
-#    ./install-scripts/wifi.sh
-#    sleep 1
-#    ./install-scripts/bluetooth.sh
-#    sleep 1
-
+   ./install-scripts/pacman.sh
+    sleep 1
+   ./install-scripts/console.sh
+    sleep 1
+   ./install-scripts/wifi.sh
+    sleep 1
+    ./install-scripts/bluetooth.sh
+    sleep 1
+fi
 
 # Ask about graphical interface
-#if ask_yes_no "Do you want to install Hyprland window manager?"; then
+if ask_yes_no "Do you want to install Hyprland window manager?"; then
     ./install-scripts/hyprland.sh
-#    sleep 1
-#fi
-exit
+    sleep 1
+fi
+
 # Ask about graphical interface
 if ask_yes_no "Do you want to install office and development tools?"; then
-#    ./install-scripts/office.sh
+    ./install-scripts/office.sh
     sleep 1
 fi
 

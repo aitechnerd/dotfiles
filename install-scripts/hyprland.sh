@@ -2,6 +2,10 @@
 
 source "install-scripts/global_functions.sh"
 
+echo "Installing Hyprland..."
+
+yay --noconfirm -S wlogout
+
 # Stow additional GUI configs
 GUI_CONFIG_DIRS=(
     "hypr"
