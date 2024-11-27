@@ -1,28 +1,14 @@
 #!/bin/bash
 
+# Check if running as root. If root, script will exit
+if [[ $EUID -eq 0 ]]; then
+    echo "This script should not be executed as root! Exiting......."
+    exit 1
+fi
+
 source "install-scripts/global_functions.sh"
 
 echo "Installing Hyprland..."
-
-yay --noconfirm -S wlogout
-
-# Stow additional GUI configs
-GUI_CONFIG_DIRS=(
-    "hypr"
-    "waybar"
-    "rofi"
-    "dunst"
-    "ml4w"
-    "wlogout"
-)
-
-for dir in "${GUI_CONFIG_DIRS[@]}"; do
-    if [ -d "$dir" ]; then
-        safe_stow "$dir" ~/
-    else
-        echo "Directory $dir not found, skipping..."
-    fi
-done
 
 # Path to .zshrc file
 ZSHRC="$HOME/.zshrc"
@@ -47,3 +33,5 @@ echo "$AUTOSTART_CODE" >> "$ZSHRC"
 echo "Hyprland autostart code has been added to $ZSHRC"
 
 echo "alias ml4w-hyprland='~/.config/ml4w/apps/ML4W_Hyprland_Settings-x86_64.AppImage'" >> "$ZSHRC"
+
+yay --noconfirm -S wlogout brave-bin outlook-for-linux-bin teams-for-linux localsend-bin

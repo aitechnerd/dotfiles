@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Check if running as root. If root, script will exit
+if [[ $EUID -eq 0 ]]; then
+    echo "This script should not be executed as root! Exiting......."
+    exit 1
+fi
+
 source "install-scripts/global_functions.sh"
 
 echo "Installing basic utilities and console tools..."
@@ -33,6 +39,12 @@ CONFIG_STOW_DIRS=(
     "mc"
     "tmux"
     "btop"
+    "hypr"
+    "waybar"
+    "rofi"
+    "dunst"
+    "ml4w"
+    "wlogout"
 )
 
 for dir in "${CONFIG_STOW_DIRS[@]}"; do
