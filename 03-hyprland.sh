@@ -32,6 +32,4 @@ echo "$AUTOSTART_CODE" >> "$ZSHRC"
 
 echo "Hyprland autostart code has been added to $ZSHRC"
 
-echo "alias ml4w-hyprland='~/.config/ml4w/apps/ML4W_Hyprland_Settings-x86_64.AppImage'" >> "$ZSHRC"
-
-yay --noconfirm -S wlogout brave-bin outlook-for-linux-bin teams-for-linux localsend-bin
+yay --noconfirm -S wlogout brave-bin localsend-bin
