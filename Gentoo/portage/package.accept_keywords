@@ -4,6 +4,7 @@ dev-qt/qtwayland
 dev-qt/qtdeclarative
 dev-qt/qtshadertools
 dev-cpp/sdbus-c++
+net-wireless/bluez-tools
 gui-apps/wlogout
 www-client/firefox
 dev-libs/nss
@@ -14,6 +15,8 @@ gui-apps/rofi-wayland
 gui-apps/hyprpaper
 gui-apps/hyprlock
 gui-apps/hypridle
+gui-apps/hyprgraphics
+dev-libs/hyprgraphics
 dev-qt/qtsvg
 dev-qt/qttranslations
 dev-qt/qttools
@@ -35,6 +38,8 @@ media-video/obs-studio
 dev-util/hyprwayland-scanner
 gui-libs/hyprutils
 gui-wm/hyprland
+dev-libs/hyprlang
+gui-libs/hyprland-qtutils
 gui-libs/aquamarine
 dev-libs/hyprland-protocols
 sys-devel/gcc
@@ -48,3 +53,9 @@ dev-qt/qtconcurrent
 dev-qt/qtwidgets
 dev-qt/qtxml
 dev-qt/qtx11extras
+app-office/obsidian
+x11-terms/ghostty
+x11-terms/ghostty-terminfo
+sys-libs/ncurses
+dev-lang/zig
+app-eselect/eselect-zig
