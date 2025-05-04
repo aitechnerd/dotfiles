@@ -17,6 +17,7 @@ gui-apps/hyprlock
 gui-apps/hypridle
 gui-apps/hyprgraphics
 dev-libs/hyprgraphics
+gui-libs/hyprcursor
 dev-qt/qtsvg
 dev-qt/qttranslations
 dev-qt/qttools
@@ -38,6 +39,7 @@ media-video/obs-studio
 dev-util/hyprwayland-scanner
 gui-libs/hyprutils
 gui-wm/hyprland
+dev-cpp/glaze
 dev-libs/hyprlang
 gui-libs/hyprland-qtutils
 gui-libs/aquamarine
