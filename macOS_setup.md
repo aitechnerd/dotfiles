@@ -18,3 +18,8 @@ Install https://www.raycast.com
 Install https://cursor.com
 
 Install client https://nextcloud.com/install/#desktop-files
+
+## Configuration. MacOS settings
+
+Go to Keyboard -> Keyboard Shortcuts...
+Disable shortcuts that will never be used, like managing windows and hiding dock. 
