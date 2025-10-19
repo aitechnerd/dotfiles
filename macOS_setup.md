@@ -16,3 +16,5 @@ Install https://bitwarden.com
 Install https://www.raycast.com
 
 Install https://cursor.com
+
+Install client https://nextcloud.com/install/#desktop-files
