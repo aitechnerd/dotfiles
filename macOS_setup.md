@@ -19,6 +19,8 @@ Install https://cursor.com
 
 Install client https://nextcloud.com/install/#desktop-files
 
+install https://apps.apple.com/us/app/adguard-for-safari/id1440147259?mt=12
+
 ## Configuration. MacOS settings
 
 Go to Keyboard -> Keyboard Shortcuts...
