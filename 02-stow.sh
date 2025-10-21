@@ -25,5 +25,3 @@ for dir in "${CONFIG_STOW_DIRS[@]}"; do
         echo "Directory $dir not found, skipping..."
     fi
 done
-
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

@@ -31,5 +31,3 @@ fi
 echo "$AUTOSTART_CODE" >> "$ZSHRC"
 
 echo "Hyprland autostart code has been added to $ZSHRC"
-
-yay --noconfirm -S wlogout brave-bin localsend-bin

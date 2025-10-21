@@ -88,7 +88,7 @@ filepos_max_saved_entries=1024
 
 [Layout]
 output_lines=0
-left_panel_size=42
+left_panel_size=66
 top_panel_size=0
 message_visible=true
 keybar_visible=true
@@ -117,7 +117,7 @@ base_color=
 linux=
 color_terminals=
 xterm-256color=
-xterm-ghostty=
+foot=
 
 [Panels]
 show_mini_info=true
@@ -138,7 +138,7 @@ filetype_mode=true
 permission_mode=false
 torben_fj_mode=false
 quick_search_mode=2
-select_flags=6
+select_flags=4
 
 [FindFile]
 file_case_sens=false
@@ -156,7 +156,7 @@ ignore_dirs_enable=true
 ignore_dirs=
 
 [Panelize]
-Find *.orig after patching=find . -name \\*.orig -print
-Modified git files=git ls-files --modified
 Find rejects after patching=find . -name \\*.rej -print
+Find *.orig after patching=find . -name \\*.orig -print
 Find SUID and SGID programs=find . \\( \\( -perm -04000 -a -perm /011 \\) -o \\( -perm -02000 -a -perm /01 \\) \\) -print
+Modified git files=git ls-files --modified
