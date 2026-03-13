@@ -93,6 +93,9 @@
     "com.apple.finder" = {
       DisableAllAnimations = true;
     };
+    "com.apple.AdLib" = {
+      allowApplePersonalizedAdvertising = false;
+    };
     "com.apple.dock" = {
       no-bouncing = true;
       springboard-show-duration = 0.1;

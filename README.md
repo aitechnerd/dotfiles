@@ -50,6 +50,8 @@ sudo nix run nix-darwin -- switch --flake .
 - Disable Game Center daemon (~30MB): `launchctl bootout gui/$(id -u) /System/Library/LaunchAgents/com.apple.gamed.plist 2>/dev/null`
 - Disable Siri Knowledge agent (~50MB): `launchctl bootout gui/$(id -u) /System/Library/LaunchAgents/com.apple.knowledge-agent.plist 2>/dev/null`
 - Remove all widgets from Notification Center (each widget is a separate process)
+- System Settings → Privacy & Security → Analytics & Improvements → turn off all sharing
+- System Settings → General → AirDrop & Handoff → Handoff → OFF (if not using cross-device handoff)
 
 ## Daily Usage
 
