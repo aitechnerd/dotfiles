@@ -5,7 +5,7 @@ Declarative macOS configuration. One command to set up everything.
 ## What This Manages
 
 - **CLI tools**: git, ripgrep, fd, bat, fzf, eza, zoxide, delta, etc.
-- **GUI apps**: Zed (via Homebrew)
+- **GUI apps**: Zed, Ghostty, DBeaver, etc. (via Homebrew)
 - **Shell**: zsh with aliases, autosuggestions, syntax highlighting, direnv
 - **Git**: delta diffs, global gitignore
 - **Editor**: Zed settings managed declaratively
@@ -13,10 +13,10 @@ Declarative macOS configuration. One command to set up everything.
 
 ## Fresh Machine Setup
 
-### 1. Install Nix
+### 1. Install Nix (Determinate)
 
 ```bash
-sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install)
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 ```
 
 Restart your terminal after installation.
@@ -32,28 +32,30 @@ Restart your terminal after installation.
 ```bash
 git clone https://github.com/aitechnerd/dotfiles.git ~/Projects/dotfiles
 cd ~/Projects/dotfiles
-darwin-rebuild switch --flake .
 ```
 
-First run takes a few minutes. Subsequent rebuilds are fast.
+First run uses `nix run` to bootstrap nix-darwin:
+
+```bash
+sudo nix run nix-darwin -- switch --flake .
+```
 
 ### 4. Manual steps (one-time)
 
-```
-# Verify Siri is off (may need logout)
-# System Settings → Siri & Spotlight → verify everything is off
-
-# System Settings → Accessibility → Display → Reduce Motion → ON
-```
+- System Settings → Accessibility → Display → Reduce Motion → ON
+- Verify Siri is off (may need logout): System Settings → Siri & Spotlight
 
 ## Daily Usage
 
+After the initial install, nix-darwin is available directly:
+
 ```bash
-rebuild                       # rebuild after config changes (alias)
-darwin-rebuild switch --rollback  # rollback to previous config
+rebuild                              # rebuild after config changes (shell alias)
+darwin-rebuild switch --flake .      # same thing, explicit form
+darwin-rebuild switch --rollback     # rollback to previous config
 ```
 
-### Update all inputs
+### Update all inputs (nixpkgs, home-manager, nix-darwin)
 
 ```bash
 cd ~/Projects/dotfiles
@@ -84,4 +86,4 @@ rebuild
 ## Before You Start
 
 1. `flake.nix` → verify `hostname` and `username`
-2. `home/git.nix` → set your git `userName` and `userEmail`
+2. `home/git.nix` → set your git `settings.user.name` and `settings.user.email`

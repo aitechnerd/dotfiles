@@ -12,14 +12,11 @@
   };
 
   # ── Nix settings ──
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    # Avoid warning about trusted users
-    trusted-users = [ "root" username ];
-  };
+  # Determinate Nix manages the daemon, so disable nix-darwin's management
+  nix.enable = false;
 
-  # ── Enable nix-daemon ──
-  services.nix-daemon.enable = true;
+  # ── Primary user (required for user-specific system options) ──
+  system.primaryUser = username;
 
   # ── Enable zsh (default shell on macOS) ──
   programs.zsh.enable = true;

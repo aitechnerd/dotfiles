@@ -31,10 +31,10 @@
       gl = "git pull";
       gd = "git diff";
 
-      rebuild = "darwin-rebuild switch --flake ~/Projects/dotfiles";
+      rebuild = "sudo darwin-rebuild switch --flake ~/Projects/dotfiles";
     };
 
-    initExtra = ''
+    initContent = ''
       eval "$(zoxide init zsh)"
       source <(fzf --zsh)
     '';

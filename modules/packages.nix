@@ -22,6 +22,6 @@
 
     # ── Nix tools ──
     nil
-    nixfmt-rfc-style
+    nixfmt
   ];
 }
