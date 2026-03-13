@@ -42,8 +42,14 @@ sudo nix run nix-darwin -- switch --flake .
 
 ### 4. Manual steps (one-time)
 
-- System Settings → Accessibility → Display → Reduce Motion → ON
+- System Settings → Accessibility → Display → Reduce Motion → ON (replaces slide animations with instant cross-fades system-wide)
+- System Settings → Accessibility → Display → Reduce Transparency → ON (less compositing overhead)
 - Verify Siri is off (may need logout): System Settings → Siri & Spotlight
+- Disable Spotlight indexing (saves CPU, replace with Raycast/Alfred): `sudo mdutil -a -i off`
+- Disable Time Machine local snapshots (if not using Time Machine): `sudo tmutil disable`
+- Disable Game Center daemon (~30MB): `launchctl bootout gui/$(id -u) /System/Library/LaunchAgents/com.apple.gamed.plist 2>/dev/null`
+- Disable Siri Knowledge agent (~50MB): `launchctl bootout gui/$(id -u) /System/Library/LaunchAgents/com.apple.knowledge-agent.plist 2>/dev/null`
+- Remove all widgets from Notification Center (each widget is a separate process)
 
 ## Daily Usage
 
