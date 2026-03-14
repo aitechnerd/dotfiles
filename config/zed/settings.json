@@ -4,11 +4,6 @@
     "indent_size": 12.0,
     "dock": "right"
   },
-  "agent_servers": {
-    "claude": {
-      "default_mode": "plan"
-    }
-  },
   "vim_mode": true,
   "vim": {
     "toggle_relative_line_numbers": true
@@ -41,5 +36,50 @@
   "toolbar": {
     "breadcrumbs": true,
     "quick_actions": false
+  },
+
+  // ── Disable built-in terminal ──
+  "terminal": {
+    "enabled": false
+  },
+
+  // ── Disable AI features (using Claude Code in Ghostty instead) ──
+  "features": {
+    "inline_completion_provider": "none"
+  },
+  "agent": {
+    "enabled": false
+  },
+
+  // ── Reduce LSP memory pressure ──
+  "inlay_hints": {
+    "enabled": false
+  },
+  "diagnostics": {
+    "inline": {
+      "enabled": false
+    }
+  },
+
+  // ── LSP config ──
+  "lsp": {
+    "nixd": {
+      "binary": {
+        "path_lookup": true
+      }
+    },
+    "rust-analyzer": {
+      "initialization_options": {
+        "checkOnSave": false,
+        "diagnostics": {
+          "enable": false
+        }
+      }
+    }
+  },
+  "languages": {
+    "Nix": {
+      "language_servers": ["nixd", "!nil"]
+    }
   }
 }

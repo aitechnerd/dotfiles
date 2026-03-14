@@ -6,7 +6,7 @@
     nerd-fonts.jetbrains-mono
 
     # ── Nix tools ──
-    nil
+    nixd
     nixfmt
   ];
 }
