@@ -20,13 +20,14 @@
     system = "aarch64-darwin";
     pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
 
-    # ── Change these to match your machine ──
-    hostname = "Sergeys-MacBook-Air";
-    username = "sergeybelov";
+    # ── Auto-detected from the current system ──
+    username = builtins.getEnv "USER";
+    hostname = builtins.getEnv "HOSTNAME";
+    dotfilesPath = "/Users/${username}/.dotfiles";
   in {
     darwinConfigurations.${hostname} = nix-darwin.lib.darwinSystem {
       inherit system;
-      specialArgs = { inherit pkgs username hostname; };
+      specialArgs = { inherit pkgs username hostname dotfilesPath; };
       modules = [
         ./hosts/air-m4.nix
         ./modules/system.nix
@@ -39,7 +40,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "bak";
-          home-manager.extraSpecialArgs = { inherit username; };
+          home-manager.extraSpecialArgs = { inherit username dotfilesPath; };
           home-manager.users.${username} = import ./home;
         }
       ];

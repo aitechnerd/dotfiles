@@ -1,4 +1,4 @@
-{ pkgs, username, ... }:
+{ config, pkgs, username, dotfilesPath, ... }:
 
 {
   imports = [
@@ -14,42 +14,15 @@
 
   programs.home-manager.enable = true;
 
-  # ── Zed editor config ──
-  home.file.".config/zed/settings.json".text = builtins.toJSON {
-    buffer_font_family = "JetBrains Mono";
-    project_panel = {
-      indent_size = 12.0;
-      dock = "right";
-    };
-    agent_servers.claude.default_mode = "plan";
-    vim_mode = true;
-    vim.toggle_relative_line_numbers = true;
-    ui_font_size = 16;
-    buffer_font_size = 16;
-    theme = {
-      mode = "system";
-      light = "Catppuccin Mocha";
-      dark = "One Dark";
-    };
-    tabs = {
-      git_status = true;
-      file_icons = true;
-      show_diagnostics = "errors";
-    };
-    tab_bar.show_nav_history_buttons = false;
-    soft_wrap = "editor_width";
-    relative_line_numbers = "enabled";
-    show_whitespaces = "selection";
-    indent_guides = {
-      enabled = true;
-      coloring = "indent_aware";
-    };
-    scrollbar.show = "never";
-    toolbar = {
-      breadcrumbs = true;
-      quick_actions = false;
-    };
-  };
+  # ── Zed editor config (mutable — edit in repo, commit to git) ──
+  home.file.".config/zed/settings.json".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/config/zed/settings.json";
+
+  # ── Nextcloud symlinks ──
+  # Replace macOS directories with Nextcloud-synced versions
+  # First time: move existing ~/Documents contents into ~/Nextcloud/Documents
+  home.file."Documents".source =
+    config.lib.file.mkOutOfStoreSymlink "/Users/${username}/Nextcloud/Documents";
 
   # ── Session variables ──
   home.sessionVariables = {

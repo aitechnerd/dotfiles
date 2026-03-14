@@ -4,12 +4,18 @@ Declarative macOS configuration. One command to set up everything.
 
 ## What This Manages
 
-- **CLI tools**: git, ripgrep, fd, bat, fzf, eza, zoxide, delta, etc.
-- **GUI apps**: Zed, Ghostty, DBeaver, etc. (via Homebrew)
+- **CLI tools**: git, ripgrep, fd, bat, fzf, eza, zoxide, delta, mc, etc. (via Homebrew)
+- **GUI apps**: Zed, Ghostty, DBeaver, etc. (via Homebrew casks)
 - **Shell**: zsh with aliases, autosuggestions, syntax highlighting, direnv
 - **Git**: delta diffs, global gitignore
-- **Editor**: Zed settings managed declaratively
+- **Editor**: Zed settings as a mutable config file (`config/zed/settings.json`)
 - **macOS settings**: dark mode, fast key repeat, Dock auto-hide, Siri disabled, Touch ID sudo
+- **Automation**: daily brew upgrades (2am via launchd), weekly Nix garbage collection
+
+## Before You Start
+
+1. `home/git.nix` → set your git `settings.user.name` and `settings.user.email`
+2. Username and hostname are auto-detected (uses `--impure` flag)
 
 ## Fresh Machine Setup
 
@@ -21,7 +27,7 @@ curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix 
 
 Restart your terminal after installation.
 
-### 2. Install Homebrew (required for GUI apps)
+### 2. Install Homebrew (required for CLI tools and GUI apps)
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -30,14 +36,14 @@ Restart your terminal after installation.
 ### 3. Clone and apply
 
 ```bash
-git clone https://github.com/aitechnerd/dotfiles.git ~/Projects/dotfiles
-cd ~/Projects/dotfiles
+git clone https://github.com/aitechnerd/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
 ```
 
 First run uses `nix run` to bootstrap nix-darwin:
 
 ```bash
-sudo nix run nix-darwin -- switch --flake .
+sudo nix run nix-darwin -- switch --flake . --impure
 ```
 
 ### 4. Manual steps (one-time)
@@ -58,40 +64,46 @@ sudo nix run nix-darwin -- switch --flake .
 After the initial install, nix-darwin is available directly:
 
 ```bash
-rebuild                              # rebuild after config changes (shell alias)
-darwin-rebuild switch --flake .      # same thing, explicit form
-darwin-rebuild switch --rollback     # rollback to previous config
+rebuild                                        # rebuild after config changes (shell alias)
+darwin-rebuild switch --flake . --impure       # same thing, explicit form
+darwin-rebuild switch --rollback               # rollback to previous config
+```
+
+Brew packages are upgraded automatically daily at 2am (runs on wake if laptop was asleep). To upgrade manually:
+
+```bash
+brew upgrade
 ```
 
 ### Update all inputs (nixpkgs, home-manager, nix-darwin)
 
 ```bash
-cd ~/Projects/dotfiles
+cd ~/.dotfiles
 nix flake update
 rebuild
 ```
 
-### Add a CLI tool → `modules/packages.nix` → `rebuild`
+### Add a CLI tool → `modules/homebrew.nix` (brews) → `rebuild`
 
-### Add a GUI app → `modules/homebrew.nix` → `rebuild`
+### Add a GUI app → `modules/homebrew.nix` (casks) → `rebuild`
+
+### Edit Zed settings → `config/zed/settings.json` → commit and push
 
 ## Structure
 
 ```
-├── flake.nix              # Entry point — inputs and outputs
+├── flake.nix              # Entry point — inputs, outputs, username/hostname auto-detected
 ├── hosts/
 │   └── air-m4.nix         # Machine identity, user, nix settings
 ├── modules/
-│   ├── system.nix         # macOS defaults (Dock, Finder, Siri, keyboard)
-│   ├── packages.nix       # CLI tools via Nix
-│   └── homebrew.nix       # GUI apps via Homebrew casks
+│   ├── system.nix         # macOS defaults, launchd agents, Nix GC
+│   ├── packages.nix       # Nix-only packages (fonts, Nix tools)
+│   └── homebrew.nix       # CLI tools (brews) and GUI apps (casks)
+├── config/
+│   └── zed/
+│       └── settings.json  # Zed editor config (mutable, edit directly)
 └── home/
-    ├── default.nix        # home-manager: Zed config, session vars
+    ├── default.nix        # home-manager: Zed symlink, session vars
     ├── shell.nix          # zsh: aliases, history, direnv
     └── git.nix            # git: config, delta, gh CLI
 ```
-
-## Before You Start
-
-1. `flake.nix` → verify `hostname` and `username`
-2. `home/git.nix` → set your git `settings.user.name` and `settings.user.email`

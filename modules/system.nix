@@ -53,7 +53,39 @@
 
     # ── Login ──
     loginwindow.GuestEnabled = false;
+
+    # ── Screenshots ──
+    screencapture = {
+      location = "~/Screenshots";
+      type = "png";
+    };
   };
+
+  # ── Nix garbage collection ──
+  nix.gc = {
+    automatic = true;
+    interval = { Weekday = 0; Hour = 3; Minute = 0; };  # weekly on Sunday 3am
+    options = "--delete-older-than 5d";
+  };
+
+  # ── Daily brew upgrade ──
+  launchd.agents.brew-upgrade = {
+    serviceConfig = {
+      Label = "com.user.brew-upgrade";
+      ProgramArguments = [ "/opt/homebrew/bin/brew" "upgrade" ];
+      StartCalendarInterval = [{ Hour = 2; Minute = 0; }];
+      StandardOutPath = "/tmp/brew-upgrade.log";
+      StandardErrorPath = "/tmp/brew-upgrade.log";
+    };
+  };
+
+  # ── Post-activation ──
+  system.activationScripts.postUserActivation.text = ''
+    # Show ~/Library in Finder
+    chflags nohidden ~/Library
+    # Ensure Screenshots directory exists
+    mkdir -p ~/Screenshots
+  '';
 
   # ── Touch ID for sudo ──
   security.pam.services.sudo_local.touchIdAuth = true;
@@ -95,6 +127,13 @@
     };
     "com.apple.AdLib" = {
       allowApplePersonalizedAdvertising = false;
+    };
+    "com.apple.screencapture" = {
+      show-thumbnail = false;
+    };
+    "com.apple.desktopservices" = {
+      DSDontWriteNetworkStores = true;
+      DSDontWriteUSBStores = true;
     };
     "com.apple.dock" = {
       no-bouncing = true;

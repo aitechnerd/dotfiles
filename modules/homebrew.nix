@@ -20,7 +20,22 @@
 
     # ── CLI tools not in nixpkgs (or better via brew) ──
     brews = [
-      # Add brew formulas here if needed
+      # Core utils
+      "fd"
+      "ripgrep"
+      "jq"
+      "bat"
+      "eza"
+      "zoxide"
+      "fzf"
+
+      # Development
+      "git"
+      "gh"
+      "delta"
+
+      # File manager
+      "midnight-commander"
     ];
 
     # ── GUI Applications ──
@@ -48,6 +63,12 @@
       # Utilities
       "hammerspoon"          # automation (until tileport replaces it)
       "localsend"            # local network file sharing
+      "hiddenbar"            # hide menu bar icons
+
+      # Quick Look plugins
+      "qlmarkdown"
+      "qlstephen"            # preview plain text files without extension
+      "qlcolorcode"          # syntax highlighting in Quick Look
     ];
   };
 }

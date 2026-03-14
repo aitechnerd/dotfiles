@@ -31,7 +31,7 @@
       gl = "git pull";
       gd = "git diff";
 
-      rebuild = "sudo darwin-rebuild switch --flake ~/Projects/dotfiles";
+      rebuild = "sudo darwin-rebuild switch --flake ~/.dotfiles --impure";
     };
 
     initContent = ''
