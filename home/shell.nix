@@ -31,7 +31,7 @@
       gl = "git pull";
       gd = "git diff";
 
-      rebuild = "sudo darwin-rebuild switch --flake ~/.dotfiles --impure";
+      rebuild = "HOSTNAME=$(/bin/hostname -s) sudo --preserve-env=HOSTNAME darwin-rebuild switch --flake ~/.dotfiles --impure";
     };
 
     initContent = ''

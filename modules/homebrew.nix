@@ -18,6 +18,10 @@
       cleanup = "zap";       # remove casks not listed here
     };
 
+    taps = [
+      "aitechnerd/sshore"
+    ];
+
     # ── CLI tools not in nixpkgs (or better via brew) ──
     brews = [
       # Core utils
@@ -33,6 +37,10 @@
       "git"
       "gh"
       "delta"
+      "rust"
+
+      # SSH manager
+      "sshore"
 
       # File manager
       "midnight-commander"

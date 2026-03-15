@@ -85,6 +85,11 @@
     chflags nohidden ~/Library
     # Ensure Screenshots directory exists
     mkdir -p ~/Screenshots
+    # Install AI Dev Team for Claude Code (one-time)
+    if [ ! -d ~/.ai-team ]; then
+      ${pkgs.git}/bin/git clone https://github.com/aitechnerd/ai-dev-team ~/.ai-team
+      bash ~/.ai-team/install.sh global
+    fi
   '';
 
   # ── Touch ID for sudo ──
