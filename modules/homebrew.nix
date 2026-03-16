@@ -38,6 +38,7 @@
       "gh"
       "delta"
       "rust"
+      "tmux"
 
       # SSH manager
       "sshore"
