@@ -31,8 +31,8 @@
 
     # ── Global ──
     NSGlobalDomain = {
-      KeyRepeat = 1;
-      InitialKeyRepeat = 10;
+      KeyRepeat = 2;
+      InitialKeyRepeat = 25;
       ApplePressAndHoldEnabled = false;
       AppleInterfaceStyle = "Dark";
       NSAutomaticWindowAnimationsEnabled = false;
