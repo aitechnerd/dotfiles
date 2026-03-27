@@ -18,6 +18,10 @@
   home.file.".config/zed/settings.json".source =
     config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/config/zed/settings.json";
 
+  # ── Tileport window manager config ──
+  home.file.".config/tileport/tileport.toml".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/config/tileport/tileport.toml";
+
   # ── Nextcloud symlinks ──
   # Replace macOS directories with Nextcloud-synced versions
   # First time: move existing ~/Documents contents into ~/Nextcloud/Documents

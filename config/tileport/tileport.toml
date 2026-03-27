@@ -1,0 +1,27 @@
+[gaps]
+inner = 6
+outer = 6
+
+[layouts.laptop]
+type = "columns"
+ratios = [0.4, 0.6]
+
+[layouts.ultrawide]
+type = "columns"
+ratios = [0.25, 0.50, 0.25]
+
+[workspaces.1]
+layout = "laptop"
+
+# Monitor profiles
+[profiles.undocked]
+zen = true
+
+[profiles.undocked.workspaces.1]
+layout = "laptop"
+
+[profiles.docked]
+zen = false
+
+[profiles.docked.workspaces.1]
+layout = "ultrawide"
