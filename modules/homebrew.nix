@@ -73,7 +73,6 @@
       "tailscale"            # mesh VPN
 
       # Utilities
-      "hammerspoon"          # automation (until tileport replaces it)
       "localsend"            # local network file sharing
       "hiddenbar"            # hide menu bar icons
 
