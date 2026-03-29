@@ -1,0 +1,4 @@
+{{- $type := promptStringOnce . "type" "Machine type (personal/work)" -}}
+
+[data]
+  type = {{ $type | quote }}

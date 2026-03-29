@@ -1,0 +1,43 @@
+[user]
+    name = Sergey Belov
+{{ if eq .type "work" -}}
+    email = sergey@posterityhealth.com
+{{ else -}}
+    email = belov.ss@gmail.com
+{{ end -}}
+
+[init]
+    defaultBranch = master
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+
+[diff]
+    algorithm = histogram
+
+[merge]
+    conflictstyle = diff3
+
+[rerere]
+    enabled = true
+
+[credential]
+    helper = osxkeychain
+
+[core]
+    pager = delta
+    excludesfile = ~/.gitignore_global
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+
+[gh]
+    gitProtocol = ssh

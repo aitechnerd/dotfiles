@@ -1,109 +1,92 @@
-# dotfiles — nix-darwin + home-manager
+# dotfiles — chezmoi
 
-Declarative macOS configuration. One command to set up everything.
+macOS configuration managed with [chezmoi](https://www.chezmoi.io/). One command to set up everything.
 
 ## What This Manages
 
 - **CLI tools**: git, ripgrep, fd, bat, fzf, eza, zoxide, delta, mc, etc. (via Homebrew)
 - **GUI apps**: Zed, Ghostty, DBeaver, etc. (via Homebrew casks)
 - **Shell**: zsh with aliases, autosuggestions, syntax highlighting, direnv
-- **Git**: delta diffs, global gitignore
-- **Editor**: Zed settings as a mutable config file (`config/zed/settings.json`)
+- **Git**: delta diffs, global gitignore, machine-specific email
+- **Editor**: Zed settings, Tileport window manager config
 - **macOS settings**: dark mode, fast key repeat, Dock auto-hide, Siri disabled, Touch ID sudo
-- **Automation**: daily brew upgrades (2am via launchd), weekly Nix garbage collection
-
-## Before You Start
-
-1. `home/git.nix` → set your git `settings.user.name` and `settings.user.email`
-2. Username and hostname are auto-detected (uses `--impure` flag)
 
 ## Fresh Machine Setup
 
-### 1. Install Nix (Determinate)
-
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-```
-
-Restart your terminal after installation.
-
-### 2. Install Homebrew (required for CLI tools and GUI apps)
-
-```bash
+# 1. Install Homebrew (also installs Xcode CLT which provides git)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-### 3. Clone and apply
-
-```bash
+# 2. Clone the repo (git is now available via Xcode CLT)
 git clone https://github.com/aitechnerd/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
+
+# 3. Install chezmoi and apply
+brew install chezmoi
+chezmoi init --source=~/.dotfiles --apply
 ```
 
-First run uses `nix run` to bootstrap nix-darwin:
+chezmoi will prompt for machine type (`personal` or `work`) on first run, then:
+- Install all Homebrew packages and casks
+- Apply macOS system defaults
+- Symlink all config files
 
-```bash
-sudo nix run nix-darwin -- switch --flake . --impure
-```
+The repo stays at `~/.dotfiles` — edit files there, commit, push as normal.
 
-### 4. Manual steps (one-time)
+### Manual steps (one-time)
 
-- System Settings → Accessibility → Display → Reduce Motion → ON (replaces slide animations with instant cross-fades system-wide)
-- System Settings → Accessibility → Display → Reduce Transparency → ON (less compositing overhead)
-- Verify Siri is off (may need logout): System Settings → Siri & Spotlight
-- Disable Spotlight indexing (saves CPU, replace with Raycast/Alfred): `sudo mdutil -a -i off`
-- Disable Time Machine local snapshots (if not using Time Machine): `sudo tmutil disable`
-- Disable Game Center daemon (~30MB): `launchctl bootout gui/$(id -u) /System/Library/LaunchAgents/com.apple.gamed.plist 2>/dev/null`
-- Disable Siri Knowledge agent (~50MB): `launchctl bootout gui/$(id -u) /System/Library/LaunchAgents/com.apple.knowledge-agent.plist 2>/dev/null`
-- Remove all widgets from Notification Center (each widget is a separate process)
-- System Settings → Privacy & Security → Analytics & Improvements → turn off all sharing
-- System Settings → General → AirDrop & Handoff → Handoff → OFF (if not using cross-device handoff)
+- System Settings -> Accessibility -> Display -> Reduce Motion -> ON
+- System Settings -> Accessibility -> Display -> Reduce Transparency -> ON
+- System Settings -> Privacy & Security -> Analytics & Improvements -> turn off all sharing
+- Disable Spotlight indexing: `sudo mdutil -a -i off`
 
 ## Daily Usage
 
-After the initial install, nix-darwin is available directly:
-
 ```bash
-rebuild                                        # rebuild after config changes (shell alias)
-darwin-rebuild switch --flake . --impure       # same thing, explicit form
-darwin-rebuild switch --rollback               # rollback to previous config
+# Apply config changes after editing files in ~/.dotfiles
+chezmoi apply
+
+# See what would change
+chezmoi diff
+
+# Pull changes from actual files (e.g. ~/.gitconfig) back into the repo
+chezmoi re-add
+
+# Commit and push
+cd ~/.dotfiles && git add -A && git commit -m "update configs" && git push
 ```
 
-Brew packages are upgraded automatically daily at 2am (runs on wake if laptop was asleep). To upgrade manually:
+### Add a CLI tool -> edit `Brewfile` -> `chezmoi apply`
+
+### Add a GUI app -> edit `Brewfile` -> `chezmoi apply`
+
+### Change a macOS default -> edit `run_onchange_macos.sh` -> `chezmoi apply`
+
+### On another machine
 
 ```bash
-brew upgrade
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
+git clone https://github.com/aitechnerd/dotfiles.git ~/.dotfiles
+brew install chezmoi
+chezmoi init --source=~/.dotfiles --apply
 ```
-
-### Update all inputs (nixpkgs, home-manager, nix-darwin)
-
-```bash
-cd ~/.dotfiles
-nix flake update
-rebuild
-```
-
-### Add a CLI tool → `modules/homebrew.nix` (brews) → `rebuild`
-
-### Add a GUI app → `modules/homebrew.nix` (casks) → `rebuild`
-
-### Edit Zed settings → `config/zed/settings.json` → commit and push
 
 ## Structure
 
 ```
-├── flake.nix              # Entry point — inputs, outputs, username/hostname auto-detected
-├── hosts/
-│   └── air-m4.nix         # Machine identity, user, nix settings
-├── modules/
-│   ├── system.nix         # macOS defaults, launchd agents, Nix GC
-│   ├── packages.nix       # Nix-only packages (fonts, Nix tools)
-│   └── homebrew.nix       # CLI tools (brews) and GUI apps (casks)
-├── config/
-│   └── zed/
-│       └── settings.json  # Zed editor config (mutable, edit directly)
-└── home/
-    ├── default.nix        # home-manager: Zed symlink, session vars
-    ├── shell.nix          # zsh: aliases, history, direnv
-    └── git.nix            # git: config, delta, gh CLI
+├── .chezmoi.toml.tmpl          # Machine config (personal/work prompt)
+├── Brewfile                    # Homebrew packages and casks
+├── run_onchange_brew.sh.tmpl   # Installs Homebrew packages when Brewfile changes
+├── run_onchange_macos.sh       # macOS defaults, Touch ID sudo, system tweaks
+├── dot_zshrc.tmpl              # zsh config (aliases, plugins, env vars)
+├── dot_gitconfig.tmpl          # git config (templated for personal/work email)
+├── dot_gitignore_global        # global gitignore
+└── private_dot_config/
+    ├── zed/settings.json       # Zed editor config
+    └── tileport/tileport.toml  # Tileport window manager config
 ```
+
+## Machine-Specific Config
+
+The `.chezmoi.toml.tmpl` prompts for `type` on init (`personal` or `work`). Templates use this to vary config — for example, `dot_gitconfig.tmpl` sets different email addresses per machine type.

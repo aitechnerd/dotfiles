@@ -1,0 +1,64 @@
+# Taps
+tap "aitechnerd/sshore"
+tap "homebrew/cask-fonts"
+
+# CLI tools
+brew "fd"
+brew "ripgrep"
+brew "jq"
+brew "bat"
+brew "eza"
+brew "zoxide"
+brew "fzf"
+brew "git"
+brew "gh"
+brew "delta"
+brew "rust"
+brew "tmux"
+brew "sshore"
+brew "midnight-commander"
+brew "chezmoi"
+brew "mas"
+brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
+
+# Fonts
+cask "font-jetbrains-mono-nerd-font"
+
+# AI
+cask "claude"
+cask "claude-code"
+cask "codex"
+
+# Terminal
+cask "ghostty"
+
+# Editor
+cask "zed"
+
+# Cloud sync
+cask "nextcloud"
+
+# Password manager
+cask "bitwarden"
+
+# Database
+cask "dbeaver-community"
+
+# Networking
+cask "tailscale"
+
+# Utilities
+cask "localsend"
+cask "hiddenbar"
+
+# Quick Look plugins
+cask "qlmarkdown"
+cask "qlstephen"
+cask "qlcolorcode"
+
+{{ if eq .type "work" -}}
+# Work (App Store)
+mas "Microsoft Teams", id: 1113153706
+mas "Microsoft Outlook", id: 985367838
+{{ end -}}
