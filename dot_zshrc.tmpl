@@ -7,18 +7,6 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 
-# ── Completion ──
-autoload -Uz compinit && compinit
-
-# ── Plugins (installed via Homebrew) ──
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# ── Tools ──
-eval "$(zoxide init zsh)"
-source <(fzf --zsh)
-eval "$(direnv hook zsh)"
-
 # ── Environment ──
 export EDITOR="zed --wait"
 export VISUAL="zed --wait"
@@ -31,7 +19,6 @@ alias ll="eza -la --icons --git"
 alias cat="bat"
 alias grep="rg"
 alias find="fd"
-alias cd="z"
 
 alias gs="git status"
 alias ga="git add"
@@ -39,3 +26,21 @@ alias gc="git commit"
 alias gp="git push"
 alias gl="git pull"
 alias gd="git diff"
+
+# ── Fast exit for mc subshell ──
+[[ -n "$MC_SID" ]] && return
+
+# ── Completion ──
+autoload -Uz compinit && compinit
+
+# ── Plugins (installed via Homebrew) ──
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# ── Tools ──
+eval "$(zoxide init zsh)"
+source <(fzf --zsh)
+eval "$(direnv hook zsh)"
+
+# ── Aliases (require tools above) ──
+alias cd="z"
