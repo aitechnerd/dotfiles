@@ -66,20 +66,43 @@ defaults write com.apple.screencapture location -string "${HOME}/Screenshots"
 defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.screencapture show-thumbnail -bool false
 
-# ── Disable Siri ──
+# ── Disable Siri (all components) ──
 defaults write com.apple.assistant.support "Assistant Enabled" -bool false
 defaults write com.apple.Siri StatusMenuVisible -bool false
 defaults write com.apple.Siri VoiceTriggerEnabled -bool false
 defaults write com.apple.Siri UserHasDeclinedEnable -bool true
 defaults write com.apple.assistant.backedup "Use device speaker for TTS" -int 0
+launchctl disable "gui/$(id -u)/com.apple.assistantd" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.siriinferenced" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.Siri.agent" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.suggestd" 2>/dev/null || true
+killall assistantd siriinferenced suggestd 2>/dev/null || true
+
+# ── Spotlight (apps + calculator only, disable indexing except /Applications) ──
+defaults write com.apple.spotlight EnabledPreferenceRules -array \
+    "System.applications" \
+    "System.menuItems"
+sudo mdutil -a -i off 2>/dev/null || true
+sudo mdutil -i on /Applications 2>/dev/null || true
+
+# ── Disable Photos (all analysis and library daemons) ──
+defaults write com.apple.photoanalysisd PADisabled -bool true
+launchctl disable "gui/$(id -u)/com.apple.photoanalysisd" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.photolibraryd" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.mediaanalysisd" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.photos.ImageConversionService" 2>/dev/null || true
+killall photoanalysisd photolibraryd mediaanalysisd com.apple.photos.ImageConversionService 2>/dev/null || true
+
+# ── Disable unused widgets (News, Stocks, Home) ──
+defaults write com.apple.news NSUserDefaultsLaunchConfigurationIsSupportedKey -bool false
+launchctl disable "gui/$(id -u)/com.apple.news" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.stocks" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.Home" 2>/dev/null || true
 
 # ── Privacy & security ──
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 defaults write com.apple.CrashReporter DialogType -string "none"
 defaults write com.apple.AdLib allowApplePersonalizedAdvertising -bool false
-
-# ── Disable photo analysis ──
-defaults write com.apple.photoanalysisd PADisabled -bool true
 
 # ── Disable .DS_Store on network/USB ──
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -96,10 +119,11 @@ if [ ! -f "$SUDO_LOCAL" ] || ! grep -q "pam_tid.so" "$SUDO_LOCAL"; then
 fi
 
 # ── Nextcloud Documents symlink ──
-if [ -d "${HOME}/Nextcloud/Documents" ] && [ ! -L "${HOME}/Documents" ]; then
-    echo "Linking ~/Documents -> ~/Nextcloud/Documents"
-    rm -rf "${HOME}/Documents"
-    ln -s "${HOME}/Nextcloud/Documents" "${HOME}/Documents"
+NEXTCLOUD_DOCS=$(find "${HOME}/Library/CloudStorage" -maxdepth 2 -type d -name "Documents" -path "*/Nextcloud-*" 2>/dev/null | head -1)
+if [ -n "$NEXTCLOUD_DOCS" ] && [ ! -L "${HOME}/Documents" ]; then
+    echo "Linking ~/Documents -> $NEXTCLOUD_DOCS"
+    sudo rm -rf "${HOME}/Documents"
+    ln -s "$NEXTCLOUD_DOCS" "${HOME}/Documents"
 fi
 
 # ── Install AI Dev Team for Claude Code ──

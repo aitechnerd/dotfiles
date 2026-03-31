@@ -1,6 +1,5 @@
 # Taps
 tap "aitechnerd/sshore"
-tap "homebrew/cask-fonts"
 
 # CLI tools
 brew "fd"
@@ -15,11 +14,16 @@ brew "gh"
 brew "delta"
 brew "rust"
 brew "tmux"
-brew "sshore"
+#brew "sshore"
 brew "midnight-commander"
 brew "chezmoi"
+brew "direnv"
 brew "mas"
 brew "ncdu"
+brew "semgrep"
+brew "gitleaks"
+brew "trivy"
+brew "hadolint"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 
@@ -28,7 +32,6 @@ cask "font-jetbrains-mono-nerd-font"
 
 # AI
 cask "claude"
-cask "claude-code"
 cask "codex"
 
 # Terminal
@@ -41,13 +44,16 @@ cask "zed"
 cask "nextcloud"
 
 # Password manager
-cask "bitwarden"
+mas "Bitwarden", id: 1352778147
 
 # Database
 cask "dbeaver-community"
 
 # Networking
-cask "tailscale"
+cask "tailscale-app"
+
+# Containers
+cask "docker-desktop"
 
 # Utilities
 cask "localsend"

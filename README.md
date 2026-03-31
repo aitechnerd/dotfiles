@@ -16,7 +16,6 @@ macOS configuration managed with [chezmoi](https://www.chezmoi.io/). One command
 ```bash
 # 1. Install Homebrew (also installs Xcode CLT which provides git)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # 2. Clone the repo (git is now available via Xcode CLT)
 git clone https://github.com/aitechnerd/dotfiles.git ~/.dotfiles
@@ -36,9 +35,11 @@ The repo stays at `~/.dotfiles` — edit files there, commit, push as normal.
 ### Manual steps (one-time)
 
 - System Settings -> Accessibility -> Display -> Reduce Motion -> ON
-- System Settings -> Accessibility -> Display -> Reduce Transparency -> ON
-- System Settings -> Privacy & Security -> Analytics & Improvements -> turn off all sharing
-- Disable Spotlight indexing: `sudo mdutil -a -i off`
+- Disable Spotlight indexing everywhere except `/Applications` (so app launching still works):
+  ```bash
+  sudo mdutil -a -i off          # disable indexing globally
+  sudo mdutil -i on /Applications # re-enable for app launching
+  ```
 
 ## Daily Usage
 
@@ -66,7 +67,6 @@ cd ~/.dotfiles && git add -A && git commit -m "update configs" && git push
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-eval "$(/opt/homebrew/bin/brew shellenv)"
 git clone https://github.com/aitechnerd/dotfiles.git ~/.dotfiles
 brew install chezmoi
 chezmoi init --source=~/.dotfiles --apply
