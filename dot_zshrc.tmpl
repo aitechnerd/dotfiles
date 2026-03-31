@@ -32,6 +32,7 @@ alias gd="git diff"
 [[ -n "$MC_SID" ]] && return
 
 # ── Completion ──
+FPATH="/opt/homebrew/share/zsh/site-functions:$FPATH"
 autoload -Uz compinit && compinit
 
 # ── Plugins (installed via Homebrew) ──
