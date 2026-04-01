@@ -35,11 +35,7 @@ The repo stays at `~/.dotfiles` — edit files there, commit, push as normal.
 ### Manual steps (one-time)
 
 - System Settings -> Accessibility -> Display -> Reduce Motion -> ON
-- Disable Spotlight indexing everywhere except `/Applications` (so app launching still works):
-  ```bash
-  sudo mdutil -a -i off          # disable indexing globally
-  sudo mdutil -i on /Applications # re-enable for app launching
-  ```
+- Open Raycast, set it as the Cmd+Space handler (replaces Spotlight)
 
 ## Daily Usage
 

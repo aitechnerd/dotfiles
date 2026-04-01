@@ -76,15 +76,27 @@ launchctl disable "gui/$(id -u)/com.apple.assistantd" 2>/dev/null || true
 launchctl disable "gui/$(id -u)/com.apple.siriinferenced" 2>/dev/null || true
 launchctl disable "gui/$(id -u)/com.apple.Siri.agent" 2>/dev/null || true
 launchctl disable "gui/$(id -u)/com.apple.suggestd" 2>/dev/null || true
-killall assistantd siriinferenced suggestd 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.siriknowledged" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.siriactionsd" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.parsecd" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.sirittsd" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.knowledgeconstructiond" 2>/dev/null || true
+defaults write com.apple.parsecd SuggestionsEnabled -bool false
+defaults write com.apple.suggestions SuggestionsAllowed -bool false
+killall assistantd siriinferenced suggestd siriknowledged siriactionsd parsecd sirittsd knowledgeconstructiond 2>/dev/null || true
 
-# ── Spotlight (apps + calculator only) ──
-defaults write com.apple.Spotlight EnabledPreferenceRules -array \
-    "System.applications" \
-    "System.menuItems" \
-    "MENU_EXPRESSION"
-sudo mdutil -i on / 2>/dev/null || true
-killall Spotlight 2>/dev/null || true
+# ── Disable Spotlight (replaced by Raycast) ──
+sudo mdutil -a -i off 2>/dev/null || true
+sudo mdutil -E / 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.Spotlight" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.corespotlightd" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.spotlightknowledged" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.spotlightknowledged.updater" 2>/dev/null || true
+sudo launchctl disable "system/com.apple.metadata.mds" 2>/dev/null || true
+sudo launchctl disable "system/com.apple.metadata.mds.index" 2>/dev/null || true
+sudo launchctl disable "system/com.apple.metadata.mds.scan" 2>/dev/null || true
+sudo launchctl disable "system/com.apple.metadata.mds.spindump" 2>/dev/null || true
+killall Spotlight corespotlightd mds_stores spotlightknowledged 2>/dev/null || true
 
 # ── Disable Photos (all analysis and library daemons) ──
 defaults write com.apple.photoanalysisd PADisabled -bool true
@@ -94,11 +106,15 @@ launchctl disable "gui/$(id -u)/com.apple.mediaanalysisd" 2>/dev/null || true
 launchctl disable "gui/$(id -u)/com.apple.photos.ImageConversionService" 2>/dev/null || true
 killall photoanalysisd photolibraryd mediaanalysisd com.apple.photos.ImageConversionService 2>/dev/null || true
 
-# ── Disable unused widgets (News, Stocks, Home) ──
+# ── Disable widgets and unused services ──
 defaults write com.apple.news NSUserDefaultsLaunchConfigurationIsSupportedKey -bool false
 launchctl disable "gui/$(id -u)/com.apple.news" 2>/dev/null || true
 launchctl disable "gui/$(id -u)/com.apple.stocks" 2>/dev/null || true
 launchctl disable "gui/$(id -u)/com.apple.Home" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.studentd" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.duetexpertd" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.chronod" 2>/dev/null || true
+launchctl disable "gui/$(id -u)/com.apple.notificationcenterui.widgets" 2>/dev/null || true
 
 # ── Privacy & security ──
 defaults write com.apple.LaunchServices LSQuarantine -bool false
