@@ -56,8 +56,10 @@ cask "dbeaver-community"
 # Networking
 cask "tailscale-app"
 
+{{ if ne .type "homelab" -}}
 # Containers
 cask "docker-desktop"
+{{ end -}}
 
 # Messaging
 cask "telegram"
@@ -76,4 +78,9 @@ cask "qlcolorcode"
 # Work (App Store)
 mas "Microsoft Teams", id: 1113153706
 mas "Microsoft Outlook", id: 985367838
+{{ end -}}
+
+{{ if eq .type "homelab" -}}
+# HomeLab
+brew "llama.cpp"
 {{ end -}}
