@@ -56,8 +56,10 @@ cask "dbeaver-community"
 # Networking
 cask "tailscale-app"
 
-{{ if ne .type "homelab" -}}
 # Containers
+{{ if eq .type "homelab" -}}
+cask "orbstack"
+{{ else -}}
 cask "docker-desktop"
 {{ end -}}
 
