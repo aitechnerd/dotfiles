@@ -25,7 +25,7 @@ brew install chezmoi
 chezmoi init --source=~/.dotfiles --apply
 ```
 
-chezmoi will prompt for machine type (`personal` or `work`) on first run, then:
+chezmoi will prompt for machine type (`personal`, `work`, or `homelab`) on first run, then:
 - Install all Homebrew packages and casks
 - Apply macOS system defaults
 - Symlink all config files
@@ -85,4 +85,4 @@ chezmoi init --source=~/.dotfiles --apply
 
 ## Machine-Specific Config
 
-The `.chezmoi.toml.tmpl` prompts for `type` on init (`personal` or `work`). Templates use this to vary config — for example, `dot_gitconfig.tmpl` sets different email addresses per machine type.
+The `.chezmoi.toml.tmpl` prompts for `type` on init (`personal`, `work`, or `homelab`). Templates use this to vary config — for example, `dot_gitconfig.tmpl` sets a different email for `work`. `homelab` currently mirrors `personal`; add `{{ if eq .type "homelab" }}` blocks to templates as homelab-specific config diverges.
