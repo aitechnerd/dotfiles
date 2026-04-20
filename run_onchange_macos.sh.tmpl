@@ -242,11 +242,18 @@ defaults write com.apple.screencapture disable-shadow -bool true
 
 # ── Always-on power behavior ──
 sudo pmset -a sleep 0 disksleep 0 powernap 0
+sudo pmset -c disablesleep 1
 sudo pmset -a autorestart 1 womp 1
 sudo pmset -a lowpowermode 0
 sudo pmset -a powermode 2 || true
 sudo systemsetup -setrestartfreeze on
 sudo systemsetup -setremotelogin on
+
+# ── Enable Screen Sharing and SMB file sharing ──
+sudo launchctl enable system/com.apple.screensharing 2>/dev/null || true
+sudo launchctl bootstrap system /System/Library/LaunchDaemons/com.apple.screensharing.plist 2>/dev/null || true
+sudo launchctl enable system/com.apple.smbd 2>/dev/null || true
+sudo launchctl bootstrap system /System/Library/LaunchDaemons/com.apple.smbd.plist 2>/dev/null || true
 
 # ── Kill more background GUI ──
 defaults -currentHost write com.apple.screensaver idleTime 0
