@@ -45,6 +45,8 @@ defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 # ── Animations ──
 defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+defaults write com.apple.universalaccess reduceMotion -bool true
+defaults write com.apple.universalaccess reduceTransparency -bool true
 
 # ── Text corrections (disable all) ──
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
@@ -223,6 +225,35 @@ cp "$HOME/.config/homebrew/brew-upgrade.plist" "$PLIST"
 launchctl bootout gui/$(id -u) "$PLIST" 2>/dev/null || true
 launchctl bootstrap gui/$(id -u) "$PLIST"
 
+{{ if eq .type "homelab" -}}
+# ── GPU wired memory limit (total RAM - 8GB reserved for system) ──
+TOTAL_MB=$(($(sysctl -n hw.memsize) / 1024 / 1024))
+VRAM_MB=$((TOTAL_MB - 8192))
+sudo sysctl iogpu.wired_limit_mb=$VRAM_MB
+SYSCTL_CONF="/etc/sysctl.conf"
+SYSCTL_LINE="iogpu.wired_limit_mb=$VRAM_MB"
+if [ ! -f "$SYSCTL_CONF" ] || ! grep -qx "$SYSCTL_LINE" "$SYSCTL_CONF"; then
+    sudo sed -i '' '/^iogpu\.wired_limit_mb=/d' "$SYSCTL_CONF" 2>/dev/null || true
+    echo "$SYSCTL_LINE" | sudo tee -a "$SYSCTL_CONF" > /dev/null
+fi
+
+# ── Reduce GUI overhead ──
+defaults write com.apple.screencapture disable-shadow -bool true
+
+# ── Always-on power behavior ──
+sudo pmset -a sleep 0 disksleep 0 powernap 0
+sudo pmset -a autorestart 1 womp 1
+sudo pmset -a lowpowermode 0
+sudo pmset -a powermode 2 || true
+sudo systemsetup -setrestartfreeze on
+sudo systemsetup -setremotelogin on
+
+# ── Kill more background GUI ──
+defaults -currentHost write com.apple.screensaver idleTime 0
+sudo tmutil disable
+sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState 0
+
+{{ end -}}
 # ── Apply changes ──
 killall cfprefsd Dock Finder SystemUIServer 2>/dev/null || true
 
