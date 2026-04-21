@@ -45,8 +45,8 @@ defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 # ── Animations ──
 defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
-defaults write com.apple.universalaccess reduceMotion -bool true
-defaults write com.apple.universalaccess reduceTransparency -bool true
+defaults write com.apple.universalaccess reduceMotion -bool true || true
+defaults write com.apple.universalaccess reduceTransparency -bool true || true
 
 # ── Text corrections (disable all) ──
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
