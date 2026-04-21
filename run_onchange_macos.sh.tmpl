@@ -257,7 +257,7 @@ sudo launchctl bootstrap system /System/Library/LaunchDaemons/com.apple.smbd.pli
 
 # ── Kill more background GUI ──
 defaults -currentHost write com.apple.screensaver idleTime 0
-sudo tmutil disable
+sudo tmutil disable || true
 sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState 0
 
 {{ end -}}
