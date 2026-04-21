@@ -246,8 +246,8 @@ sudo pmset -c disablesleep 1
 sudo pmset -a autorestart 1 womp 1
 sudo pmset -a lowpowermode 0
 sudo pmset -a powermode 2 || true
-sudo systemsetup -setrestartfreeze on
-sudo systemsetup -setremotelogin on
+sudo systemsetup -setrestartfreeze on || true
+sudo systemsetup -setremotelogin on || true
 
 # ── Enable Screen Sharing and SMB file sharing ──
 sudo launchctl enable system/com.apple.screensharing 2>/dev/null || true
